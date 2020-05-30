@@ -24,14 +24,14 @@ function* syncUser(action) {
     if (window.location.hostname === 'localhost') {
       requestOptions = {
         method: 'post',
-        url: `http://localhost:3000/user/create`,
-        body: JSON.stringify({JWT: action.payload}),
+        url: `http://localhost:3000/user/sync`,
+        body: {user: action.payload},
       };
     } else {
       requestOptions = {
         method: 'post',
-        url: `${process.env.HEROKU_URL}/user/create`,
-        body: JSON.stringify({JWT: action.payload}),
+        url: `${process.env.HEROKU_URL}/user/sync`,
+        body: {user: action.payload},
       };
     }
 

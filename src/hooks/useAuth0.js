@@ -35,7 +35,7 @@ function useAuth0() {
         auth0Client.cache.cache['default::openid profile email'].decodedToken
           .claims.__raw;
 
-    if (user && JWTToken) dispatch(authenticationActions.syncUser({JWTToken}));
+    if (user) dispatch(authenticationActions.syncUser(user));
 
     dispatch(
       authenticationActions.updateAuthentication({

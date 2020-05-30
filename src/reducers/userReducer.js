@@ -1,5 +1,4 @@
 const initialState = {
-  auth0Client: null,
   JWT: null,
   isLoading: true,
   isAuthenticated: false,

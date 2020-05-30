@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Frame, AnimatePresence } from "framer";
-import '../scss/loginButton.scss';
 
 const LoginButton = () => {
   const dispatch = useDispatch();
