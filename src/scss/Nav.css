@@ -2,8 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(146, 243, 146);
-}
+    background:transparent;
+    position: absolute;
+    width: 100%;
+  }
 
 .nav img {
     padding-left: 30px;

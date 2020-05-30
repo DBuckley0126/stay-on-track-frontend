@@ -17,7 +17,6 @@ ReactDOM.render(
   
   <Provider store={store}>
     <HttpsRedirect>
-      
       <NavBar />
       <Header />
     </HttpsRedirect>
