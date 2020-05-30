@@ -1,18 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './scss/App.scss';
+import './scss/App.css';
+import './scss/Nav.css';
+import './scss/Header.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import HttpsRedirect from 'react-https-redirect';
+import NavBar from "./components/Navbar.js";
+import Header from "./components/Header.js";
 
 //Redux Setup
 import {Provider} from 'react-redux';
 import store from './store';
 
 ReactDOM.render(
+  
   <Provider store={store}>
     <HttpsRedirect>
-      <App />
+      
+      <NavBar />
+      <Header />
     </HttpsRedirect>
   </Provider>,
   document.getElementById('root'),
