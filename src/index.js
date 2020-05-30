@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './scss/App.css';
 import './scss/Nav.css';
 import './scss/Header.css';
+import './scss/Projects.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import HttpsRedirect from 'react-https-redirect';
 import NavBar from "./components/Navbar.js";
 import Header from "./components/Header.js";
+import Projects from "./components/Projects.js";
 
 //Redux Setup
 import {Provider} from 'react-redux';
@@ -19,6 +21,7 @@ ReactDOM.render(
     <HttpsRedirect>
       <NavBar />
       <Header />
+      <Projects />
     </HttpsRedirect>
   </Provider>,
   document.getElementById('root'),
