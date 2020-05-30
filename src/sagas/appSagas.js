@@ -21,7 +21,7 @@ function* sagaTest1(action) {
     } else {
       requestOptions = {
         method: 'get',
-        url: `http://?????????/${action.payload}`,
+        url: `${process.env.HEROKU_URL}/${action.payload}`,
       };
     }
     response = yield axios(requestOptions);
