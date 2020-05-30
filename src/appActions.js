@@ -1,6 +1,6 @@
-export const testButtonGet = () => {
+export const updateTest1 = (payload) => {
   return {
-    type: "testButtonGet",
-    payload: "test_payload"
+    type: "UPDATE_TEST_1",
+    payload: payload
   };
 };
