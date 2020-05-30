@@ -5,7 +5,7 @@ import {Frame, AnimatePresence} from 'framer';
 const LogoutButton = () => {
   const dispatch = useDispatch();
   const logout = useSelector(state => state.user.logout);
-  const userLoggedIn = useSelector(state => state.user.user);
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
 
   const hoverStyle = () => {
     return {
@@ -15,7 +15,7 @@ const LogoutButton = () => {
     };
   };
 
-  if (userLoggedIn) {
+  if (isAuthenticated) {
     return (
       <Frame
         onClick={() => logout({ returnTo: window.location.origin })}

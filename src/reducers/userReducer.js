@@ -1,6 +1,5 @@
 const initialState = {
-  JWT: null,
-  isLoading: true,
+  isLoading: false,
   isAuthenticated: false,
   user: null,
   loginWithRedirect: null,
@@ -9,7 +8,6 @@ const initialState = {
   logout: null,
   synced: null,
   persisted: null,
-  apiToken: null,
 };
 
 export default function userReducer(state = initialState, action) {

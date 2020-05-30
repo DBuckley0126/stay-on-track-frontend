@@ -1,8 +1,8 @@
 import {delay} from 'redux-saga';
-import {put, call, takeEvery, takeLatest} from 'redux-saga/effects';
+import {put, call, takeEvery, takeLatest, select} from 'redux-saga/effects';
 import axios from 'axios';
 
-import {auth0Actions} from '../actions/index';
+import {authenticationActions} from '../actions/index';
 
 export default function* authenticationSagas() {
   yield takeLatest('SYNC_USER', syncUser);
@@ -11,38 +11,36 @@ export default function* authenticationSagas() {
 function* syncUser(action) {
   let requestOptions = null;
   let response = null;
-  // let configurationObject = {
-  //   method: "POST",
-  //   headers: {
-  //     Accept: "application/json",
-  //     "Content-Type": "application/json"
-  //   },
-  //   body: JSON.stringify({ JWT: action.payload })
-  // };
 
   try {
+    const JWT = yield action.payload.getTokenSilently();
     if (window.location.hostname === 'localhost') {
       requestOptions = {
-        method: 'post',
-        url: `http://localhost:3000/user/sync`,
-        body: {user: action.payload},
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+        },
+        url: `http://localhost:5000/api/v1/user/sync`,
+        data: {user: action.payload.user},
       };
     } else {
       requestOptions = {
-        method: 'post',
-        url: `${process.env.HEROKU_URL}/user/sync`,
-        body: {user: action.payload},
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+        },
+        url: `${process.env.HEROKU_URL}/api/v1/user/sync`,
+        body: {user: action.payload.user},
       };
     }
-
+ 
     response = yield axios(requestOptions);
 
     if (response.status === 200) {
       yield put(
-        auth0Actions.updateAuthentication({
+        authenticationActions.updateAuthentication({
           synced: true,
           persisted: response.data.persisted,
-          apiToken: response.data.api_token,
         }),
       );
     } else {
@@ -51,6 +49,6 @@ function* syncUser(action) {
 
   } catch (error) {
     console.log(error);
-    yield put(auth0Actions.updateAuthentication({synced: false}));
+    yield put(authenticationActions.updateAuthentication({synced: false}));
   }
 }

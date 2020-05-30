@@ -15,6 +15,7 @@ function useAuth0() {
   let config = {
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     redirect_uri: window.location.origin,
   };
 
@@ -29,18 +30,19 @@ function useAuth0() {
 
     const isAuthenticated = await auth0Client.isAuthenticated();
     const user = isAuthenticated ? await auth0Client.getUser() : null;
-    let JWTToken = null;
-    if (user)
-      JWTToken =
-        auth0Client.cache.cache['default::openid profile email'].decodedToken
-          .claims.__raw;
 
-    if (user) dispatch(authenticationActions.syncUser(user));
+    if (user) {
+      dispatch(
+        authenticationActions.syncUser({
+          getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
+          user,
+        }),
+      );
+    }
 
     dispatch(
       authenticationActions.updateAuthentication({
         auth0Client,
-        JWT: JWTToken,
         isLoading: false,
         isAuthenticated,
         user,
@@ -50,6 +52,7 @@ function useAuth0() {
         logout: (...p) => auth0Client.logout(...p),
       }),
     );
+
   };
 
   // handle the authentication callback
@@ -57,19 +60,19 @@ function useAuth0() {
     await auth0Client.handleRedirectCallback();
 
     const user = await auth0Client.getUser();
-    let JWTToken = null;
-    if (user)
-      JWTToken =
-        auth0Client.cache.cache['default::openid profile email'].decodedToken
-          .claims.__raw;
 
-    if (user && JWTToken) dispatch(authenticationActions.syncUser({JWTToken}));
-
+    if (user) {
+      dispatch(
+        authenticationActions.syncUser({
+          getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
+          user,
+        }),
+      );
+    }
     dispatch(
       authenticationActions.updateAuthentication({
         user,
         isAuthenticated: true,
-        JWT: JWTToken,
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),

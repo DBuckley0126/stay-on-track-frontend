@@ -1,2 +1,3 @@
 import appSagas from './appSagas';
-export {appSagas};
+import authenticationSagas from './authenticationSagas';
+export {appSagas, authenticationSagas};
