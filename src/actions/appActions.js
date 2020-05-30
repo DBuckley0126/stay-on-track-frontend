@@ -4,3 +4,10 @@ export const updateTest1 = (payload) => {
     payload: payload
   };
 };
+
+export const sagaTest1 = (payload) => {
+  return {
+    type: "SAGA_TEST_1",
+    payload: payload
+  };
+};
