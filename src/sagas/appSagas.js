@@ -1,10 +1,10 @@
-import { put, call, takeEvery, takeLatest, delay } from "redux-saga/effects";
+import {put, call, takeEvery, takeLatest, delay} from 'redux-saga/effects';
 import axios from 'axios';
 
-import { sagaActions } from "../actions/index";
+import {sagaActions} from '../actions/index';
 
 export default function* appSagas() {
-  yield takeEvery("SAGA_TEST_1", sagaTest1);
+  yield takeEvery('SAGA_TEST_1', sagaTest1);
 }
 
 function* sagaTest1(action) {
@@ -13,15 +13,15 @@ function* sagaTest1(action) {
   let response = false;
 
   try {
-    if (window.location.hostname === "localhost") {
+    if (window.location.hostname === 'localhost') {
       requestOptions = {
-        method: "get",
-        url: `http://localhost:5000/${action.payload}`
+        method: 'get',
+        url: `http://localhost:5000/${action.payload}`,
       };
     } else {
       requestOptions = {
-        method: "get",
-        url: `http://?????????/${action.payload}`
+        method: 'get',
+        url: `http://?????????/${action.payload}`,
       };
     }
     response = yield axios(requestOptions);

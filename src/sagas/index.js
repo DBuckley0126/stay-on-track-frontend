@@ -1,4 +1,2 @@
 import appSagas from './appSagas';
-export  {
- appSagas
-}
+export {appSagas};
