@@ -2,14 +2,14 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Frame, AnimatePresence} from 'framer';
 
-import {LoginButton, LogoutButton} from '../components/index';
+import {LoginButton, GuestLoginButton} from '../components/index';
 
 const SplashScreen = () => {
   return (
     <AnimatePresence>
       <Frame id="splash-screen-container">
         <LoginButton />
-        <LogoutButton />
+        <GuestLoginButton />
       </Frame>
     </AnimatePresence>
   );

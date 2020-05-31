@@ -5,6 +5,12 @@ export const updateAuthentication = object => {
   };
 };
 
+export const loginAsGuest = () => {
+  return {
+    type: "LOGIN_AS_GUEST"
+  };
+};
+
 export const syncUser = object => {
   return {
     type: "SYNC_USER",

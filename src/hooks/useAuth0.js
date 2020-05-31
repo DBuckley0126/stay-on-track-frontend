@@ -45,7 +45,8 @@ function useAuth0() {
         auth0Client,
         isLoading: false,
         isAuthenticated,
-        user,
+        userData: user,
+        isGuest: false,
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
@@ -71,8 +72,9 @@ function useAuth0() {
     }
     dispatch(
       authenticationActions.updateAuthentication({
-        user,
+        userData: user,
         isAuthenticated: true,
+        isGuest: false,
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),

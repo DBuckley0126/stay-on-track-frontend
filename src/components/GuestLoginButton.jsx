@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Frame, AnimatePresence} from 'framer';
+import {authenticationActions} from '../actions/index';
 
-const LogoutButton = () => {
+const GuestLoginButton = () => {
   const dispatch = useDispatch();
-  const logout = useSelector(state => state.user.logout);
-  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+  const userAuthenticated = useSelector(state => state.user.isAuthenticated);
 
   const hoverStyle = () => {
     return {
@@ -15,19 +15,24 @@ const LogoutButton = () => {
     };
   };
 
+  if (!userAuthenticated) {
     return (
       <Frame
-        onClick={() => logout({ returnTo: window.location.origin })}
-        id="splash-screen-logout-button"
+        onClick={() => dispatch(authenticationActions.loginAsGuest())}
+        id="splash-screen-guest-login-button"
         whileHover={() => hoverStyle()}
         style={{
           backgroundColor: 'rgb(132, 232, 232)',
           cursor: 'pointer',
+          margin: 200,
         }}
         center>
-        Logout
+        Guest Login
       </Frame>
     );
+  }
+
+  return <></>;
 };
 
-export default LogoutButton;
+export default GuestLoginButton;
